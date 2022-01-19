@@ -44,9 +44,7 @@ export default class Login extends Vue {
 			password: this.password
 		}))
 		.then((res) => {
-			setTimeout(() => {
-				this.$router.push({ path: '/' })
-			}, 1000);
+			this.$router.push({ path: '/' })
 		})
 		.catch((error) => {
 			this.$bvToast.toast(error, {
