@@ -32,7 +32,8 @@ export const app = {
 			const index = state.apps.findIndex(app => app.id == update.id);
 			if (index === -1) return;
 
-			Object.assign(state.apps, state.apps[index])
+
+			Object.assign(state.apps[index], update)
 		},
 		removeApp(state: AppState, appID: number) {
 			const index = state.apps.findIndex(app => app.id === appID);
