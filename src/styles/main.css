@@ -1,0 +1,16 @@
+:root {
+	--color-primary: #7953B3;
+}
+
+body {
+	font-family: 'DM Sans', sans-serif;
+}
+
+button.primary {
+	background-color: var(--color-primary);
+	border: none;
+}
+
+a {
+	color: var(--color-primary);
+}
