@@ -128,13 +128,18 @@ export default class CreateApp extends Vue {
 		}
 
 		if (this.selectedPlan !== -1) {
+			this.loading = true;
+
 			const subscription = new Subscription({
-				id: this.appSubscription?.id || 0,
 				plan: this.plans[this.selectedPlan].id,
 				app: this.app.id,
 				active: false,
 			})
-			this.loading = true;
+
+			if (this.appSubscription && this.appSubscription.id) {
+				subscription.id = this.appSubscription.id
+			}
+
 			if (this.app.subscription) {
 				updateSubscription(this.$store, subscription)
 					.then((res) => {
@@ -167,7 +172,7 @@ export default class CreateApp extends Vue {
 	}
 
 	mounted() {
-		this.app = this.activeApp;
+		this.app = new App(this.activeApp);
 		fetchPlans(this.$store)
 	}
 }

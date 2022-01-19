@@ -120,7 +120,8 @@ export default class Home extends Vue {
 }
 
 .app-card {
-	padding: 20px;
+	padding: 35px;
+	margin-bottom: 20px;
 	border-radius: 7px;
 	min-height: 150px;
 	border: 1px solid #f0f0f0;
