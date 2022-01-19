@@ -129,23 +129,25 @@ export default class CreateApp extends Vue {
 
 		if (this.selectedPlan !== -1) {
 			const subscription = new Subscription({
-				id: this.appSubscription.id,
+				id: this.appSubscription?.id || 0,
 				plan: this.plans[this.selectedPlan].id,
 				app: this.app.id,
 				active: false,
 			})
-
+			this.loading = true;
 			if (this.app.subscription) {
 				updateSubscription(this.$store, subscription)
 					.then((res) => {
 						updateAppSubscription(this.$store, res);
 					})
+					.finally(() => this.loading = false)
 			} else {
 				saveSubscriptions(this.$store, subscription.createRequest)
 					.then((res) => {
 						fetchAppSubscription(this.$store, res.id);
 						setAppSubscripton(this.$store, res);
 					})
+					.finally(() => this.loading = false)
 			}
 		}
 	}
@@ -154,12 +156,6 @@ export default class CreateApp extends Vue {
 		this.loading = true;
 		updateApp(this.$store, this.app.createRequest)
 			.then(this.close)
-			.catch((error) => {
-				this.$bvToast.toast(error, {
-					title: 'Error updating app',
-					variant: 'danger'
-				})
-			})
 			.finally(() => this.loading = false)
 	}
 
@@ -167,12 +163,6 @@ export default class CreateApp extends Vue {
 		this.loading = true;
 		createApp(this.$store, this.app.createRequest)
 			.then(this.close)
-			.catch((error) => {
-				this.$bvToast.toast(error, {
-					title: 'Error creating app',
-					variant: 'danger'
-				})
-			})
 			.finally(() => this.loading = false)
 	}
 
